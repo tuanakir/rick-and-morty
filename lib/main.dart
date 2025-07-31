@@ -11,9 +11,11 @@ import 'home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Hive.initFlutter();
   await Hive.openBox('settings');
+
+  final localeService = LocaleService();
+  await localeService.loadJsons();
 
   runApp(const MyApp());
 }

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:rick_and_morty_prj/core/services/locale_service.dart';
 
 class LanguageToggleButton extends StatelessWidget {
-  const LanguageToggleButton({super.key});
+  final VoidCallback onToggle;
+  final String currentLang;
+
+  const LanguageToggleButton({
+    Key? key,
+    required this.onToggle,
+    required this.currentLang,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final lang = Get.locale?.languageCode ?? 'en';
     return ElevatedButton(
-      onPressed: () {
-        LocaleService().toggleLanguage();
-      },
-      child: Text(lang == 'tr' ? 'EN' : 'TR'),
+      onPressed: onToggle,
+      child: Text(currentLang == 'tr' ? 'EN' : 'TR'),
     );
   }
 }
