@@ -24,7 +24,7 @@ class CharacterService {
 
     final response = await _networkManager
         .send<CharactersResponse, CharactersResponse>(
-          'Character/?$uri',
+          'character/?$uri',
           parseModel: CharactersResponse(),
           method: RequestType.GET,
         );
