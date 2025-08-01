@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
 class LanguageToggleButton extends StatelessWidget {
-  final VoidCallback onToggle;
-  final String currentLang;
+  final VoidCallback onPressed;
+  final String currentLanguageCode;
 
   const LanguageToggleButton({
     Key? key,
-    required this.onToggle,
-    required this.currentLang,
+    required this.onPressed,
+    required this.currentLanguageCode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onToggle,
-      child: Text(currentLang == 'tr' ? 'EN' : 'TR'),
+      onPressed: onPressed,
+      child: Text(currentLanguageCode == 'tr' ? 'EN' : 'TR'),
     );
   }
 }
