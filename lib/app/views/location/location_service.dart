@@ -22,7 +22,7 @@ class LocationService {
 
     final response = await _networkManager
         .send<LocationsResponse, LocationsResponse>(
-          'location/?$uri',
+          'Location/?$uri',
           parseModel: LocationsResponse(),
           method: RequestType.GET,
         );

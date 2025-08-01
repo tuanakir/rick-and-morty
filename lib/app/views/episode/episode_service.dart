@@ -20,7 +20,7 @@ class EpisodeService {
 
     final response = await _networkManager
         .send<EpisodesResponse, EpisodesResponse>(
-          'episode/?$uri',
+          'Episode/?$uri',
           parseModel: EpisodesResponse(),
           method: RequestType.GET,
         );

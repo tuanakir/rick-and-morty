@@ -13,7 +13,7 @@ class SettingsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    final box = Hive.box('settings');
+    final box = Hive.box('Settings');
     isDarkMode.value = Get.isDarkMode;
     languageCode.value = box.get('language_code', defaultValue: 'en');
   }
