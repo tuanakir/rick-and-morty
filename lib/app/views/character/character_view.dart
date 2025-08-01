@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'character_controller.dart';
+import 'package:rick_and_morty_prj/core/utils/utils.dart';
 
 class CharacterView extends StatelessWidget {
   final controller = Get.put(CharacterController());
@@ -24,7 +25,7 @@ class CharacterView extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(Utils.normalPadding),
             child: Row(
               children: [
                 Expanded(
@@ -36,7 +37,7 @@ class CharacterView extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: Utils.smallSpace),
                 DropdownButton<String>(
                   value:
                       controller.selectedStatus.isEmpty
@@ -54,7 +55,7 @@ class CharacterView extends StatelessWidget {
                     controller.applyFilters();
                   },
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: Utils.smallSpace),
                 DropdownButton<String>(
                   value:
                       controller.selectedGender.isEmpty
@@ -89,8 +90,8 @@ class CharacterView extends StatelessWidget {
                           character.image != null
                               ? Image.network(
                                 character.image!,
-                                width: 50,
-                                height: 50,
+                                width: Utils.avatarSize,
+                                height: Utils.avatarSize,
                                 fit: BoxFit.cover,
                               )
                               : null,

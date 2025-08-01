@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:rick_and_morty_prj/core/constants/locale_keys.dart';
 import 'package:rick_and_morty_prj/app/common/widgets/language_toggle_button.dart';
 import 'package:rick_and_morty_prj/app/common/controllers/settings_controller.dart';
+import 'package:rick_and_morty_prj/core/utils/utils.dart';
 
 class SettingsView extends StatelessWidget {
   SettingsView({super.key});
@@ -15,7 +15,7 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(LocaleKeys.settings.tr), centerTitle: true),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(Utils.mediumPadding),
         child: Column(
           children: [
             Obx(
@@ -27,14 +27,17 @@ class SettingsView extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: Utils.largeSpace),
             Obx(
               () => ListTile(
                 title: Text(LocaleKeys.language.tr),
                 subtitle: Text(
                   controller.languageCode.value == 'tr' ? 'Türkçe' : 'English',
                 ),
-                trailing: LanguageToggleButton,
+                trailing: LanguageToggleButton(
+                  onPressed: controller.toggleLanguage,
+                  currentLanguageCode: controller.languageCode.value,
+                ),
               ),
             ),
           ],

@@ -24,8 +24,6 @@ class SettingsController extends GetxController {
   }
 
   void toggleLanguage() {
-    final newLang = languageCode.value == 'en' ? 'tr' : 'en';
-    localeService.changeLocale(newLang);
-    languageCode.value = newLang;
+    localeService.toggleLanguage(); // Yeterli
   }
 }

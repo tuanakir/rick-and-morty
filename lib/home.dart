@@ -6,6 +6,7 @@ import 'app/views/episode/episode_view.dart';
 import 'app/views/settings/settings_view.dart';
 import 'core/constants/locale_keys.dart';
 import 'app/common/widgets/custom_app_bar.dart';
+import 'package:rick_and_morty_prj/core/utils/utils.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -30,7 +31,10 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: _pages[_selectedIndex],
+      body: Padding(
+        padding: EdgeInsets.all(Utils.lowPadding),
+        child: _pages[_selectedIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (i) => setState(() => _selectedIndex = i),

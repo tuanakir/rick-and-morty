@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'location_controller.dart';
+import 'package:rick_and_morty_prj/core/utils/utils.dart';
 
 class LocationView extends StatelessWidget {
   final controller = Get.put(LocationController());
@@ -24,7 +25,7 @@ class LocationView extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(Utils.normalPadding),
             child: Row(
               children: [
                 Expanded(
@@ -36,7 +37,7 @@ class LocationView extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: Utils.smallSpace),
                 Expanded(
                   child: TextField(
                     decoration: const InputDecoration(labelText: 'Type'),
@@ -46,7 +47,7 @@ class LocationView extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: Utils.smallSpace),
                 Expanded(
                   child: TextField(
                     decoration: const InputDecoration(labelText: 'Dimension'),

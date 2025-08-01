@@ -3,53 +3,42 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_prj/app/common/controllers/settings_controller.dart';
 
 class LocaleService extends Translations {
-  static const String _localeKey = 'locale';
-  final Box _box = Hive.box('settings');
+  static final LocaleService _instance = LocaleService._internal();
+  factory LocaleService() => _instance;
+  LocaleService._internal();
 
-  static const supportedLocales = [Locale('en', 'US'), Locale('tr', 'TR')];
+  final _box = Hive.box('settings');
+  static const _key = 'language_code';
 
-  static final Locale fallbackLocale = Locale('en', 'US');
+  final Map<String, Map<String, String>> _localizedStrings = {};
 
-  static final Map<String, Map<String, String>> _localizedValues = {};
-
-  LocaleService() {
-    _init();
-  }
-
-  Future<void> _init() async {
-    _localizedValues.addAll(await loadTranslations());
-  }
-
-  @override
-  Map<String, Map<String, String>> get keys => _localizedValues;
-
-  Future<Map<String, Map<String, String>>> loadTranslations() async {
+  Future<void> loadJsons() async {
     final enJson = await rootBundle.loadString('assets/locales/en.json');
     final trJson = await rootBundle.loadString('assets/locales/tr.json');
 
-    return {
-      'en_US': Map<String, String>.from(json.decode(enJson)),
-      'tr_TR': Map<String, String>.from(json.decode(trJson)),
-    };
+    _localizedStrings['en'] = Map<String, String>.from(json.decode(enJson));
+    _localizedStrings['tr'] = Map<String, String>.from(json.decode(trJson));
   }
 
   Locale getCurrentLocale() {
-    final localeCode = _box.get(_localeKey, defaultValue: 'en_US');
-    final parts = localeCode.split('_');
-    return Locale(parts[0], parts[1]);
+    String code = _box.get(_key, defaultValue: 'en');
+    return Locale(code);
   }
 
   void toggleLanguage() {
-    Locale newLocale;
-    if (Get.locale?.languageCode == 'en') {
-      newLocale = const Locale('tr', 'TR');
-      _box.put(_localeKey, 'tr_TR');
-    } else {
-      newLocale = const Locale('en', 'US');
-      _box.put(_localeKey, 'en_US');
+    final current = _box.get(_key, defaultValue: 'en');
+    final newLang = current == 'en' ? 'tr' : 'en';
+    _box.put(_key, newLang);
+    Get.updateLocale(Locale(newLang));
+
+    if (Get.isRegistered<SettingsController>()) {
+      Get.find<SettingsController>().languageCode.value = newLang;
     }
-    Get.updateLocale(newLocale);
   }
+
+  @override
+  Map<String, Map<String, String>> get keys => _localizedStrings;
 }
